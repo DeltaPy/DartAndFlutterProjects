@@ -1,0 +1,4 @@
+#Mon Apr 24 20:33:59 CEST 2023
+base.0=C\:\\DEV\\flutter_projects\\quiz_app\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
