@@ -6,8 +6,8 @@ final formatter = DateFormat.yMd();
 
 class NewExpense extends StatefulWidget {
   const NewExpense({super.key, required this.addExpense});
-  final void Function(DateTime date, double amount, String title) addExpense;
-
+  final void Function(
+      DateTime date, double amount, String title, Category category) addExpense;
   @override
   State<StatefulWidget> createState() {
     return _NewExpenseState();
@@ -53,6 +53,9 @@ class _NewExpenseState extends State<NewExpense> {
               )));
       return;
     }
+    Navigator.pop(context);
+    widget.addExpense(_selectedDate!, enteredAmount,
+        _titleController.text.trim(), _selectedCategory);
   }
 
   @override
@@ -65,13 +68,13 @@ class _NewExpenseState extends State<NewExpense> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(16,50,16,16),
       child: Column(
         children: [
           TextField(
             controller: _titleController,
             maxLength: 50,
-            decoration: const InputDecoration(label: Text("Title")),
+            decoration: const InputDecoration(label: Text("Title", style: TextStyle(fontWeight: FontWeight.bold),)),
             keyboardType: TextInputType.text,
           ),
           Row(
@@ -80,7 +83,7 @@ class _NewExpenseState extends State<NewExpense> {
                 child: TextField(
                   controller: _amountController,
                   decoration: const InputDecoration(
-                      label: Text('Amount'), suffixText: "\$"),
+                      label: Text('Amount', style: TextStyle(fontWeight: FontWeight.bold)), suffixText: "\$"),
                   keyboardType: TextInputType.number,
                 ),
               ),
@@ -94,7 +97,7 @@ class _NewExpenseState extends State<NewExpense> {
                 children: [
                   Text(_selectedDate == null
                       ? 'No date selected'
-                      : formatter.format(_selectedDate!)),
+                      : formatter.format(_selectedDate!), style: const TextStyle(fontWeight: FontWeight.bold)),
                   IconButton(
                       onPressed: _presentDatePicker,
                       icon: const Icon(Icons.calendar_month))
